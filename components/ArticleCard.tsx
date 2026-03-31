@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ArticleMeta } from "@/lib/content";
 
 type Props = {
@@ -6,7 +7,7 @@ type Props = {
 
 export default function ArticleCard({ article }: Props) {
   return (
-    <a
+    <Link
       href={`/articles/${article.slug}`}
       className="block group border border-border bg-card rounded-sm px-6 py-5 hover:border-accent transition-colors duration-200"
     >
@@ -30,6 +31,6 @@ export default function ArticleCard({ article }: Props) {
           ))}
         </div>
       )}
-    </a>
+    </Link>
   );
 }

@@ -5,27 +5,29 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string[] }>;
 };
 
 export async function generateStaticParams() {
   const articles = getAllArticles();
-  return articles.map((a) => ({ slug: a.slug.replace(/\//g, "%2F") }));
+  return articles.map((a) => ({ slug: a.slug.split("/") }));
 }
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const article = await getArticleBySlug(decodeURIComponent(slug)).catch(() => null);
+  const slugStr = slug.join("/");
+  const article = await getArticleBySlug(slugStr).catch(() => null);
   if (!article) return {};
   return { title: `${article.title} | JARVIS` };
 }
 
 export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
+  const slugStr = slug.join("/");
 
   let article;
   try {
-    article = await getArticleBySlug(decodeURIComponent(slug));
+    article = await getArticleBySlug(slugStr);
   } catch {
     notFound();
   }
@@ -37,7 +39,7 @@ export default async function ArticlePage({ params }: Props) {
       <main className="flex-1 px-6 md:px-12 py-16">
         <div className="max-w-[720px] mx-auto">
 
-          {/* トップに戻るリンク */}
+          {/* 記事一覧に戻るリンク */}
           <Link
             href="/articles"
             className="inline-flex items-center gap-1.5 text-muted text-sm hover:text-foreground transition-colors mb-10"
