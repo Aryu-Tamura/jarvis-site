@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { getAllArticles, getArticleBySlug } from "@/lib/content";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -37,13 +38,13 @@ export default async function ArticlePage({ params }: Props) {
         <div className="max-w-[720px] mx-auto">
 
           {/* トップに戻るリンク */}
-          <a
+          <Link
             href="/articles"
             className="inline-flex items-center gap-1.5 text-muted text-sm hover:text-foreground transition-colors mb-10"
           >
             <span aria-hidden>←</span>
             記事一覧へ
-          </a>
+          </Link>
 
           {/* メタ情報 */}
           <header className="mb-10 pb-8 border-b border-border">
