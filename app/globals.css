@@ -131,7 +131,9 @@ body {
 }
 
 .prose-article img {
-  max-width: 100%;
+  max-width: min(100%, 480px);
+  height: auto;
   border-radius: 4px;
-  margin: 1.5em 0;
+  margin: 1.5em auto;
+  display: block;
 }
